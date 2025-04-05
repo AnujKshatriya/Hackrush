@@ -24,6 +24,10 @@ export const createEvent = async (req, res) => {
       club: club1,
     });
     await newEvent.save();
+    console.log(newEvent)
+    club1.events.push(newEvent._id);
+    await club1.save();
+    
     
     res.status(201).json({ message: "Event created", event: newEvent });
   } catch (err) {

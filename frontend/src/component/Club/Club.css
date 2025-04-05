@@ -1,0 +1,58 @@
+.clubs-container {
+  max-width: 960px;
+  margin: 2rem auto;
+  padding: 1rem;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.page-title {
+  font-size: 1.8rem;
+  color: #2563eb; /* Vivid blue */
+  margin-bottom: 1rem;
+}
+
+.club-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.club-card {
+  background: #f1f5ff;
+  padding: 1rem;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  width: calc(50% - 0.5rem);
+  transition: 0.2s ease-in-out;
+}
+
+.club-card:hover,
+.club-card.active {
+  border-color: #2563eb; /* Blue border on hover/active */
+  background-color: #e0e7ff; /* Light blue bg */
+}
+
+.club-card h3 {
+  margin: 0 0 0.5rem;
+  color: #1e3a8a; /* Deep blue title */
+}
+
+.club-events {
+  margin-top: 2rem;
+}
+
+.event-card {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1rem;
+  border-left: 4px solid #2563eb; /* Blue accent stripe */
+}
+
+.event-card h4 {
+  margin-bottom: 0.3rem;
+  color: #1e40af;
+}

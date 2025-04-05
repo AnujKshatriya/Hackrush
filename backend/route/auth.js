@@ -57,7 +57,7 @@ router.get("/google/callback", async (req, res) => {
     });
 
     console.log('Token recieved',token)
-
+  
     res.redirect(`${process.env.FRONTEND_URL}/dashboard?token=${token}`);
   } catch (err) {
     console.error("Google Auth Error:", err.response?.data || err.message || err);

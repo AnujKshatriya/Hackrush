@@ -89,34 +89,34 @@ const Dashboard = () => {
     }
   };
 
-  
 
-const handleRSVP = async (eventId) => {
-  try {
-    const token = localStorage.getItem("token");
 
-    await axios.post(
-      `${BACKEND}/api/events/rsvp/${eventId}`,
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+  const handleRSVP = async (eventId) => {
+    try {
+      const token = localStorage.getItem("token");
+
+      await axios.post(
+        `${BACKEND}/api/events/rsvp/${eventId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      toast.success("Successfully registered for the event!");
+    } catch (error) {
+      if (
+        error.response?.status === 400 &&
+        error.response?.data?.message === "Already registered"
+      ) {
+        toast.info("You’ve already registered for this event.");
+      } else {
+        toast.error("RSVP failed. Try again.");
       }
-    );
-
-    toast.success("Successfully registered for the event!");
-  } catch (error) {
-    if (
-      error.response?.status === 400 &&
-      error.response?.data?.message === "Already registered"
-    ) {
-      toast.info("You’ve already registered for this event.");
-    } else {
-      toast.error("RSVP failed. Try again.");
     }
-  }
-};
+  };
 
 
 
@@ -129,7 +129,7 @@ const handleRSVP = async (eventId) => {
 
   return (
     <>
-    <ToastContainer position="top-right" autoClose={3000} />
+      <ToastContainer position="top-right" autoClose={3000} />
       <Navbar />
       <div className="dashboard-container">
         <section className="section">
@@ -173,9 +173,9 @@ const handleRSVP = async (eventId) => {
           {filteredEvents.length === 0 ? (
             <p>No events for this club.</p>
           ) : (
-            <div className="grid-container">
+            <div className="events-container">
               {filteredEvents.map((event) => (
-                <div className="card" key={event._id}>
+                <div className="event-card" key={event._id}>
                   <h3 className="card-title">{event.title}</h3>
                   <p className="card-content">{event.description}</p>
                   <p className="meta">
@@ -190,16 +190,14 @@ const handleRSVP = async (eventId) => {
                       Register
                     </button>
                   </div>
-
-
                 </div>
               ))}
-
             </div>
+
           )}
         </section>
 
-      
+
       </div>
     </>
   );

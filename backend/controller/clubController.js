@@ -4,7 +4,7 @@ import { User } from "../schema/userSchema.js";
 // ✅ GET all clubs (public)
 export const getClub = async (req, res) => {
     try {
-        const clubs = await Club.find().populate("coordinators", "name email").populate("members", "name email");
+        const clubs = await Club.find().populate("events").populate("coordinators", "name email").populate("members", "name email");
         res.json(clubs);
     } catch (err) {
         res.status(500).json({ error: "Failed to fetch clubs" });
