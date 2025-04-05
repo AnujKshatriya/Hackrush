@@ -6,8 +6,6 @@ const Login = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    console.log("🔍 Checking token in localStorage:", token);
-
     if (token) {
       navigate("/dashboard");
     }
@@ -18,97 +16,103 @@ const Login = () => {
   };
 
   return (
-    <div style={styles.wrapper}>
+    <div style={styles.container}>
       <div style={styles.card}>
-        <h1 style={styles.title}>🎉 EventHub @ IITGN</h1>
-        <p style={styles.tagline}>
-          Your one-stop solution for managing events, clubs, and communities at IITGN.
-        </p>
+        <h1 style={styles.heading}>EventHub @ IITGN</h1>
+        <p style={styles.subheading}>Seamlessly manage events, clubs, and communities.</p>
 
-        <ul style={styles.features}>
-          <li>✅ Discover and register for campus events</li>
-          <li>✅ Manage your clubs and members efficiently</li>
-          <li>✅ Get reminders and sync with your Google Calendar</li>
-        </ul>
-
-        <div style={styles.footer}>
-          <p style={{ marginBottom: "20px" }}>
-            <strong>Login only with IITGN Email</strong> (@iitgn.ac.in)
-          </p>
-          <button style={styles.googleButton} onClick={handleLogin}>
-            <img
-              src="https://developers.google.com/identity/images/g-logo.png"
-              alt="Google Logo"
-              style={styles.googleIcon}
-            />
-            Sign in with Google
-          </button>
+        <div style={styles.featureList}>
+          <p>🎯 Explore and register for events</p>
+          <p>👥 Manage clubs and members</p>
+          <p>📅 Sync with your Google Calendar</p>
         </div>
+
+        <div style={styles.notice}>
+          <p>
+            <strong>Login using your IITGN Email</strong> (@iitgn.ac.in)
+          </p>
+        </div>
+
+        <button style={styles.loginBtn} onClick={handleLogin}>
+          <img
+            src="https://developers.google.com/identity/images/g-logo.png"
+            alt="Google"
+            style={styles.googleIcon}
+          />
+          Sign in with Google
+        </button>
       </div>
     </div>
   );
 };
 
 const styles = {
-  wrapper: {
+  container: {
     height: "100vh",
-    background: "linear-gradient(to right, #667eea, #764ba2)",
+    width: "100vw",
+    background: "linear-gradient(135deg, #1e3c72, #2a5298)",
     display: "flex",
-    alignItems: "center",
     justifyContent: "center",
-    fontFamily: "Segoe UI, sans-serif",
-    padding: "20px",
+    alignItems: "center",
+    padding: "1rem",
+    fontFamily: "'Inter', sans-serif",
   },
   card: {
-    backgroundColor: "#fff",
-    borderRadius: "15px",
-    padding: "40px 30px",
-    maxWidth: "550px",
-    width: "100%",
-    boxShadow: "0 10px 30px rgba(0,0,0,0.15)",
-    textAlign: "center",
-  },
-  title: {
-    fontSize: "36px",
-    marginBottom: "10px",
-    color: "#333",
-  },
-  tagline: {
-    fontSize: "18px",
-    color: "#555",
-    marginBottom: "25px",
-  },
-  features: {
-    textAlign: "left",
-    marginBottom: "40px",
-    paddingLeft: "20px",
-    color: "#444",
-    lineHeight: "1.8",
-    fontSize: "16px",
-  },
-  footer: {
-    textAlign: "center",
-  },
-  googleButton: {
     backgroundColor: "#ffffff",
-    border: "2px solid #ccc",
-    borderRadius: "10px",
-    padding: "15px 30px",
-    fontSize: "18px",
-    fontWeight: "600",
-    cursor: "pointer",
+    borderRadius: "20px",
+    padding: "2rem",
+    width: "100%",
+    maxWidth: "400px",
+    boxShadow: "0 10px 25px rgba(0, 0, 0, 0.15)",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    textAlign: "center",
+  },
+  heading: {
+    fontSize: "2rem",
+    fontWeight: "700",
+    color: "#1e3c72",
+    marginBottom: "0.5rem",
+  },
+  subheading: {
+    fontSize: "1rem",
+    color: "#555",
+    marginBottom: "1.5rem",
+  },
+  featureList: {
+    textAlign: "left",
+    color: "#333",
+    fontSize: "0.95rem",
+    marginBottom: "2rem",
+    width: "100%",
+    lineHeight: "1.6",
+  },
+  notice: {
+    marginBottom: "1rem",
+    fontSize: "0.9rem",
+    color: "#444",
+  },
+  loginBtn: {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     gap: "12px",
-    transition: "0.3s ease",
-    margin: "0 auto",
-    width: "80%",
-    maxWidth: "350px",
+    backgroundColor: "#ffffff",
+    border: "1.5px solid #ddd",
+    borderRadius: "12px",
+    padding: "12px 20px",
+    fontSize: "1rem",
+    fontWeight: "600",
+    cursor: "pointer",
+    boxShadow: "0 4px 10px rgba(0, 0, 0, 0.08)",
+    transition: "all 0.3s ease",
+    width: "100%",
+    maxWidth: "320px",
   },
   googleIcon: {
-    width: "24px",
-    height: "24px",
+    width: "22px",
+    height: "22px",
   },
 };
 

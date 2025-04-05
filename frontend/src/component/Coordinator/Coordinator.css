@@ -1,0 +1,137 @@
+.coordinator-panel {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  .event-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 30px;
+  }
+  
+  .event-form input,
+  .event-form textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+  }
+  
+  .event-form button {
+    padding: 10px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    font-weight: 500;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .event-form button:hover {
+    background-color: #43a047;
+  }
+  
+  .event-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-left: 4px solid #4caf50;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    transition: 0.3s;
+  }
+  
+  .event-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+  
+  .event-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .event-header h4 {
+    margin: 0;
+    font-size: 1.1rem;
+  }
+  
+  .event-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 8px;
+  }
+  
+  .delete-btn {
+    background-color: #f44336;
+    border: none;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+  }
+  
+  .delete-btn:hover {
+    background-color: #d32f2f;
+  }
+
+  .event-poster {
+    width: 100%;
+    max-height: 250px;
+    object-fit: cover;
+    margin: 12px 0;
+    border-radius: 10px;
+  }
+  
+  .poster-label {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-weight: 500;
+    display: block;
+  }
+  
+  .event-form label {
+    font-weight: 600;
+    margin-bottom: 5px;
+    display: block;
+    color: #333;
+  }
+  
+  .event-dropdown {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    font-size: 16px;
+    margin-bottom: 15px;
+    transition: border-color 0.2s ease;
+  }
+  
+  .event-dropdown:focus {
+    border-color: #4a90e2;
+    outline: none;
+  }
+  
+  
+  @media (max-width: 600px) {
+    .event-card,
+    .event-form input,
+    .event-form button {
+      font-size: 0.95rem;
+    }
+  
+    .event-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+    }
+  }
+  
