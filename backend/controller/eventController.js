@@ -24,7 +24,7 @@ export const createEvent = async (req, res) => {
       club: club1,
     });
     await newEvent.save();
-
+    
     res.status(201).json({ message: "Event created", event: newEvent });
   } catch (err) {
     res.status(500).json({ error: "Error creating event" });
@@ -59,8 +59,7 @@ export const approveEvent = async (req, res) => {
 // Get All Approved Events (visible to students)
 export const getApprovedEvents = async (req, res) => {
   try {
-    const events = await Event.find({ approved: true }).populate('club', 'name')
-    .populate('createdBy', 'name email role');
+    const events = await Event.find({ approved: true }).populate('club createdBy', 'name email');
     res.json(events);
   } catch (err) {
     res.status(500).json({ error: 'Error fetching events' });
@@ -69,8 +68,7 @@ export const getApprovedEvents = async (req, res) => {
 
 export const getUnapprovedEvents = async (req, res) => {
   try {
-    const events = await Event.find({ approved: false }).populate('club', 'name')
-    .populate('createdBy', 'name email role');
+    const events = await Event.find({ approved: false }).populate('club createdBy', 'name email');
     res.json(events);
   } catch (err) {
     res.status(500).json({ error: 'Error fetching events' });
@@ -90,16 +88,17 @@ export const getEvents = async (req, res) => {
 // RSVP to Event - Student
 export const rsvpEvent = async (req, res) => {
   try {
+    console.log(1)
     const { eventId } = req.params;
     const event = await Event.findById(eventId);
-
+    console.log(event)
     if (!event) return res.status(404).json({ message: 'Event not found' });
     if (!event.approved) return res.status(403).json({ message: 'Event not approved yet' });
-
-    if (event.registeredStudents.includes(req.user._id)) {
+    console.log("h1")
+    if (event.registeredStudents.map(id => id.toString()).includes(req.user._id.toString())) {
       return res.status(400).json({ message: 'Already registered' });
-    }
-
+    }      
+    console.log("h")
     event.registeredStudents.push(req.user._id);
     await event.save();
 
