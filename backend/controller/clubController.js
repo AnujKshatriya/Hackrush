@@ -13,14 +13,33 @@ export const getClub = async (req, res) => {
 
 // ✅ CREATE a club (Admin only)
 export const createClub = async (req, res) => {
-    const { name, description } = req.body;
-    try {
-        const club = new Club({ name, description });
-        await club.save();
-        res.status(201).json(club);
-    } catch (err) {
-        res.status(400).json({ error: "Failed to create club" });
+  const { name, description, coordinatorEmail } = req.body;
+
+  try {
+    // 1. Find the user by email
+    const user = await User.findOne({ email: coordinatorEmail });
+    
+    if (!user) {
+        return res.status(404).json({ error: "User not found with this email" });
     }
+
+    const club = new Club({
+      name,
+      description,
+      coordinators: [user._id]
+    });
+
+    await club.save();
+
+    user.clubAffiliations.push(club._id);
+    user.role='ClubCoordinator';
+    await user.save();
+
+    res.status(201).json(club);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Failed to create club' });
+  }
 };
 
 // ✅ DELETE a club (Admin only)
