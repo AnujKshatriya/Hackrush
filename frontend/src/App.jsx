@@ -4,15 +4,11 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 
 const App = () => {
-  const token = localStorage.getItem("token");
 
   return (
     <Routes>
       <Route path="/" element={<Login />} />
-      <Route
-        path="/dashboard"
-        element={token ? <Dashboard /> : <Navigate to="/" />}
-      />
+      <Route path="/dashboard" element={<Dashboard/>}/>
     </Routes>
   );
 };

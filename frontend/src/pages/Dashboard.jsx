@@ -7,9 +7,16 @@ const Dashboard = () => {
 
   useEffect(() => {
     const tokenFromUrl = new URLSearchParams(location.search).get("token");
+    const tokenInStorage = localStorage.getItem("token");
+
+    console.log("📦 Token from URL:", tokenFromUrl);
+    console.log("🗃️ Token from localStorage:", tokenInStorage);
+
     if (tokenFromUrl) {
       localStorage.setItem("token", tokenFromUrl);
-      navigate("/dashboard", { replace: true });
+      navigate("/dashboard", { replace: true }); // remove token from URL
+    } else if (!tokenInStorage) {
+      navigate("/", { replace: true });
     }
   }, [location, navigate]);
 
