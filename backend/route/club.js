@@ -3,7 +3,8 @@ import {
   createClub,
   deleteClub,
   getClub,
-  updateClub
+  updateClub,
+  removeClubCoordinator
 } from '../controller/clubController.js';
 
 import { isAdmin, authenticate } from '../middleware/auth.js';
@@ -18,6 +19,9 @@ router.post('/', authenticate, isAdmin, createClub);
 
 router.delete('/:id', authenticate, isAdmin, deleteClub);
 
-router.patch('/:id/coordinator', authenticate, isAdmin, updateClub);
+router.patch('/coordinator', authenticate, isAdmin, updateClub);
+
+router.put("/remove-coordinator", authenticate, isAdmin, removeClubCoordinator);
+
 
 export default router;

@@ -1,20 +1,19 @@
-// import express from 'express';
-// import {
-//   createNotice,
-//   deleteNotices,
-//   getNotices
-// } from '../controller/noticeController.js';
+import express from 'express';
+import {
+  createEvent,
+  deleteEvent,
+  approveEvent,
+  getApprovedEvents,
+  rsvpEvent,
+} from '../controller/eventController.js';
+import { authenticate, isAdmin, isAdminOrCoordinator } from '../middleware/auth.js';
 
-// import { isAdmin, authenticate } from '../middleware/auth.js';
+const router = express.Router();
 
-// const router = express.Router();
+router.post('/', authenticate, isAdminOrCoordinator, createEvent);
+router.delete('/:id', authenticate, isAdminOrCoordinator, deleteEvent);
+router.patch('/approve/:id', authenticate, isAdmin, approveEvent);
+router.get('/', authenticate, getApprovedEvents);
+router.post('/rsvp/:eventId', authenticate, rsvpEvent);
 
-// // Everyone: view all active notices
-// router.get('/', getNotices);
-
-// // Admin or Coordinator: post a notice
-// router.post('/', authenticate, isAdmin, createNotice);
-
-// router.delete('/:id', authenticate, isAdmin, deleteNotices);
-
-// export default router;
+export default router;

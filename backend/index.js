@@ -6,7 +6,7 @@ import authRoutes from "./route/auth.js";
 import noticeRoutes from "./route/notice.js";
 import clubRoutes from "./route/club.js";
 import { authenticate } from './middleware/auth.js';
-// import eventRoutes from "./route/event.js";
+import eventRoutes from "./route/event.js";
 
 dotenv.config();
 connectDB();
@@ -30,7 +30,7 @@ app.use("/api/auth", authRoutes);
 
 // Routes
 app.use('/api/clubs', clubRoutes);
-// app.use('/api/events', eventRoutes);
+app.use('/api/events', eventRoutes);
 app.use('/api/notices', noticeRoutes);
 
 app.listen(PORT, () => {

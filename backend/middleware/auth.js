@@ -28,7 +28,15 @@ export const isAdmin = (req, res, next) => {
 };
 
 export const isCoordinator = (req, res, next) => {
-if (req.user?.role === 'club_coordinator') next();
+if (req.user?.role === 'ClubCoordinator') next();
 else res.status(403).json({ message: 'Coordinator only' });
 };
-  
+
+export const isAdminOrCoordinator = (req, res, next) => {
+  const role = req.user.role;
+  if (role === 'Admin' || role === 'ClubCoordinator') {
+    next();
+  } else {
+    return res.status(403).json({ message: 'Access denied: Admin or Coordinator only' });
+  }
+};
