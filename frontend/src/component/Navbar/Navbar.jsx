@@ -29,7 +29,7 @@ const Navbar = () => {
 
         <div className={`navbar-links ${isOpen ? "active" : ""}`}>
           <div className="nav-center">
-          <Link to="/notice">Notice</Link>
+          <Link to="/dashboard">Dashboard</Link>
           <Link to="/clubs">Clubs</Link>
             {user?.role === "Admin" && <Link to="/admin-panel">Admin</Link>}
             {user?.role === "ClubCoordinator" && <Link to="/club-panel">Club Panel</Link>}
