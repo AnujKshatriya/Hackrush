@@ -67,6 +67,15 @@ export const getApprovedEvents = async (req, res) => {
   }
 };
 
+export const getUnapprovedEvents = async (req, res) => {
+  try {
+    const events = await Event.find({ approved: false }).populate('club', 'name')
+    .populate('createdBy', 'name email role');
+    res.json(events);
+  } catch (err) {
+    res.status(500).json({ error: 'Error fetching events' });
+  }
+};
 
 export const getEvents = async (req, res) => {
   try {
