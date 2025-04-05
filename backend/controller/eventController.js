@@ -10,6 +10,8 @@ export const createEvent = async (req, res) => {
       return res.status(400).json({ error: "All fields are required" });
     }
 
+    const club1 = await Club.findById(req.user.clubAffiliations[0]);
+
     const newEvent = new Event({
       title,
       description,
@@ -19,7 +21,7 @@ export const createEvent = async (req, res) => {
       category,
       posterUrl,
       createdBy: req.user._id,
-      club: req.user.clubAffiliations.name,
+      club: club1,
     });
     await newEvent.save();
 
@@ -46,10 +48,9 @@ export const deleteEvent = async (req, res) => {
 export const approveEvent = async (req, res) => {
   try {
     const { id } = req.params;
-    const { approve } = req.body; // approve = true/false
 
-    const event = await Event.findByIdAndUpdate(id, { approved: approve }, { new: true });
-    res.json({ message: approve ? 'Event approved' : 'Event rejected', event });
+    const event = await Event.findByIdAndUpdate(id, { approved: true }, { new: true });
+    res.json({ message: true ? 'Event approved' : 'Event rejected', event });
   } catch (err) {
     res.status(500).json({ error: 'Failed to update event approval' });
   }
@@ -58,12 +59,24 @@ export const approveEvent = async (req, res) => {
 // Get All Approved Events (visible to students)
 export const getApprovedEvents = async (req, res) => {
   try {
-    const events = await Event.find({ approved: true }).populate('club createdBy', 'name email');
+    const events = await Event.find({ approved: true }).populate('club', 'name')
+    .populate('createdBy', 'name email role');
     res.json(events);
   } catch (err) {
     res.status(500).json({ error: 'Error fetching events' });
   }
 };
+
+
+export const getEvents = async (req, res) => {
+  try {
+    const events = await Event.find({}).populate('club createdBy', 'name email');
+    res.json(events);
+  } catch (err) {
+    res.status(500).json({ error: 'Error fetching events' });
+  }
+};
+
 
 // RSVP to Event - Student
 export const rsvpEvent = async (req, res) => {
