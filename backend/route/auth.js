@@ -52,13 +52,11 @@ router.get("/google/callback", async (req, res) => {
       await user.save();
     }
     console.log('====================================');
-    console.log("hi");
-    console.log('====================================');
     const token = jwt.sign({ useremail: user.email }, process.env.JWT_SECRET, {
       expiresIn: "7d",
     });
 
-    console.log(token)
+    console.log('Token recieved',token)
 
     res.redirect(`${process.env.FRONTEND_URL}/dashboard?token=${token}`);
   } catch (err) {
