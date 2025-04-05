@@ -19,6 +19,11 @@ app.get('/', (req, res) => {
 });
 app.use("/api/auth", authRoutes);
 
+// Routes
+app.use('/api/clubs', clubRoutes);
+app.use('/api/events', eventRoutes);
+app.use('/api/notices', noticeRoutes);
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
