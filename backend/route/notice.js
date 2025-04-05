@@ -1,10 +1,11 @@
 import express from 'express';
 import {
   createNotice,
+  deleteNotices,
   getNotices
 } from '../controller/noticeController.js';
 
-import { isAdmin } from '../middlewares/auth.js';
+import { isAdmin, authenticate } from '../middleware/auth.js';
 
 const router = express.Router();
 
@@ -12,6 +13,8 @@ const router = express.Router();
 router.get('/', getNotices);
 
 // Admin or Coordinator: post a notice
-router.post('/', isAdmin, createNotice);
+router.post('/', authenticate, isAdmin, createNotice);
+
+router.delete('/:id', authenticate, isAdmin, deleteNotices);
 
 export default router;
