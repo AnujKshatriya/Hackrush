@@ -25,50 +25,59 @@ const Club = () => {
 
   return (
     <>
-    <ToastContainer position="top-right" autoClose={3000} />
-    <Navbar />
-    <div className="clubs-container">
-      <h2 className="page-title">🎓 Clubs</h2>
+      <ToastContainer position="top-right" autoClose={3000} />
+      <Navbar />
+      <div className="clubs-container">
+        <h2 className="page-title">🎓 Clubs</h2>
 
-      <div className="club-list">
-        {clubs.map((club) => (
-          <div
-            key={club._id}
-            className={`club-card ${selectedClub?._id === club._id ? "active" : ""}`}
-            onClick={() => setSelectedClub(club)}
-          >
-            <h3>{club.name}</h3>
-            <p>{club.description}</p>
-          </div>
-        ))}
-      </div>
+        <div className="club-list">
+          {clubs.map((club) => (
+            <div
+              key={club._id}
+              className={`club-card ${selectedClub?._id === club._id ? "active" : ""}`}
+              onClick={() => setSelectedClub(club)}
+            >
+              <h3>{club.name}</h3>
+              <p>{club.description}</p>
+              <button
+                className="btn-outline join-btn"
+                onClick={(e) => {
+                  e.stopPropagation(); // prevent triggering card selection
+                  toast.success("🎉 You are now a member of this club!");
+                }}
+              >
+                Join Club
+              </button>
+            </div>
+          ))}
+        </div>
 
-      {selectedClub && (
-        <div className="club-events">
-          <h3 className="section-title">📅 Events by {selectedClub.name}</h3>
-          {selectedClub.events.length === 0 ? (
-            <p>No events yet for this club.</p>
-          ) : (
-            selectedClub.events.map((event) => (
-              <div className="event-card" key={event._id}>
-                <h4>{event.title}</h4>
-                {event.posterUrl && (
+        {selectedClub && (
+          <div className="club-events">
+            <h3 className="section-title">📅 Events by {selectedClub.name}</h3>
+            {selectedClub.events.length === 0 ? (
+              <p>No events yet for this club.</p>
+            ) : (
+              selectedClub.events.map((event) => (
+                <div className="event-card" key={event._id}>
+                  <h4>{event.title}</h4>
+                  {event.posterUrl && (
                     <img
                       src={event.posterUrl}
                       alt={`${event.title} poster`}
                       className="event-poster"
                     />
                   )}
-                <p>{event.description}</p>
-                <p>
-                  📍 {event.venue} | 📅 {new Date(event.date).toLocaleDateString()} ⏰ {event.time}
-                </p>
-              </div>
-            ))
-          )}
-        </div>
-      )}
-    </div>
+                  <p>{event.description}</p>
+                  <p>
+                    📍 {event.venue} | 📅 {new Date(event.date).toLocaleDateString()} ⏰ {event.time}
+                  </p>
+                </div>
+              ))
+            )}
+          </div>
+        )}
+      </div>
     </>
   );
 };

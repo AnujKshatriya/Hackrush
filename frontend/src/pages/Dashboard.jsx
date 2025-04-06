@@ -133,7 +133,23 @@ const Dashboard = () => {
       <Navbar />
       <div className="dashboard-container">
         <section className="section">
-          <h2 className="section-title">📌 Notice Board</h2>
+          <div className="section-header">
+            <h2 className="section-title">📌 Notice Board</h2>
+            <div className="notice-filters">
+              <div className="search-bar">
+                <input type="text" placeholder="Search notices..."  />
+                <span className="search-icon">🔍</span>
+              </div>
+              <select >
+                <option value="">All</option>
+                <option value="Acadmic">Acadmic</option>
+                <option value="Fees">Fees</option>
+                <option value="Club">Club</option>
+                <option value="Campus">Campus</option>
+              </select>
+            </div>
+          </div>
+
           <div className="grid-container">
             {(showAllNotices ? notices : notices.slice(0, 6)).map((notice) => (
               <div className="card" key={notice._id}>
@@ -188,7 +204,7 @@ const Dashboard = () => {
 
                   <p className="card-content">{event.description}</p>
                   <p className="meta">
-                  📍 {event.venue} | 📅 {new Date(event.date).toLocaleDateString()} ⏰ {event.time}
+                    📍 {event.venue} | 📅 {new Date(event.date).toLocaleDateString()} ⏰ {event.time}
                   </p>
                   <div className="event-footer">
                     <p className="tag">🎯 {event.club?.name || "Unknown Club"}</p>

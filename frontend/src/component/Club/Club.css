@@ -64,3 +64,21 @@
   border-radius: 10px;
   margin-bottom: 10px;
 }
+
+.join-btn {
+  margin-top: 0.5rem;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  color: #2563eb;
+  border: 1px solid #2563eb;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.join-btn:hover {
+  background: #2563eb;
+  color: white;
+}
+
