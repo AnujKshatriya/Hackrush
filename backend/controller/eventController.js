@@ -4,12 +4,13 @@ import { Club } from '../schema/clubSchema.js';
 // Create Event - Admin or ClubCoordinator
 export const createEvent = async (req, res) => {
   try {
-    const { title, description, date, time, venue, category, posterUrl} = req.body;
+    const { title, description, date, time, venue, category, posterUrl } = req.body;
 
-    if (!title || !description || !date || !time || !venue || !category) {
+    if (!title || !description || !date || !time || !venue || !category || !posterUrl) {
       return res.status(400).json({ error: "All fields are required" });
     }
 
+    // Get the coordinator's club
     const club1 = await Club.findById(req.user.clubAffiliations[0]);
 
     const newEvent = new Event({
@@ -19,22 +20,23 @@ export const createEvent = async (req, res) => {
       time,
       venue,
       category,
-      posterUrl,
+      posterUrl, // Already uploaded from frontend
       createdBy: req.user._id,
       club: club1,
     });
+
     await newEvent.save();
-    console.log(newEvent)
     club1.events.push(newEvent._id);
     await club1.save();
-    
-    
+
     res.status(201).json({ message: "Event created", event: newEvent });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Error creating event" });
   }
 };
+
+
 
 // Delete Event - Admin or Coordinator who created it
 export const deleteEvent = async (req, res) => {

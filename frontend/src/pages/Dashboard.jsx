@@ -177,9 +177,18 @@ const Dashboard = () => {
               {filteredEvents.map((event) => (
                 <div className="event-card" key={event._id}>
                   <h3 className="card-title">{event.title}</h3>
+
+                  {event.posterUrl && (
+                    <img
+                      src={event.posterUrl}
+                      alt={`${event.title} poster`}
+                      className="event-poster"
+                    />
+                  )}
+
                   <p className="card-content">{event.description}</p>
                   <p className="meta">
-                    📍 {event.venue} | 📅 {event.date} ⏰ {event.time}
+                  📍 {event.venue} | 📅 {new Date(event.date).toLocaleDateString()} ⏰ {event.time}
                   </p>
                   <div className="event-footer">
                     <p className="tag">🎯 {event.club?.name || "Unknown Club"}</p>
@@ -192,6 +201,7 @@ const Dashboard = () => {
                   </div>
                 </div>
               ))}
+
             </div>
 
           )}

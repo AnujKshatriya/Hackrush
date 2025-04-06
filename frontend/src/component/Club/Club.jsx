@@ -52,6 +52,13 @@ const Club = () => {
             selectedClub.events.map((event) => (
               <div className="event-card" key={event._id}>
                 <h4>{event.title}</h4>
+                {event.posterUrl && (
+                    <img
+                      src={event.posterUrl}
+                      alt={`${event.title} poster`}
+                      className="event-poster"
+                    />
+                  )}
                 <p>{event.description}</p>
                 <p>
                   📍 {event.venue} | 📅 {new Date(event.date).toLocaleDateString()} ⏰ {event.time}

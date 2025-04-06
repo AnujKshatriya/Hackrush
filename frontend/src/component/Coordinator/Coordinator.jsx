@@ -32,12 +32,11 @@ const CoordinatorPanel = () => {
   const uploadToCloudinary = async (file) => {
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("upload_preset", "YOUR_UPLOAD_PRESET"); // Replace with yours
+    formData.append("upload_preset", import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET); // Replace with yours
 
-    const res = await axios.post(
-      "https://api.cloudinary.com/v1_1/YOUR_CLOUD_NAME/image/upload",
-      formData
-    );
+    const CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
+    const res = await axios.post(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, formData);
+
     if (res.status !== 200) {
       toast.error("Error uploading image to Cloudinary");
       throw new Error("Error uploading image to Cloudinary");
@@ -56,13 +55,13 @@ const CoordinatorPanel = () => {
         posterUrl = uploadedUrl;
       }
 
-      const res = await axios.post(`${BACKEND}/api/events`, { ...eventData, posterUrl },{
+      const res = await axios.post(`${BACKEND}/api/events`, { ...eventData, posterUrl }, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       console.log(res.data);
-  
+
       toast.success("Event created successfully!");
       setEventData({
         title: "",
@@ -74,7 +73,7 @@ const CoordinatorPanel = () => {
         posterUrl: "",
       });
       setImageFile(null);
-  
+
     } catch (err) {
       console.error(err);
       toast.error("Error creating event");
@@ -84,7 +83,7 @@ const CoordinatorPanel = () => {
 
   return (
     <>
-    <ToastContainer position="top-right" autoClose={3000} />
+      <ToastContainer position="top-right" autoClose={3000} />
       <Navbar />
       <div className="coordinator-panel">
         <h2>Create Event</h2>
