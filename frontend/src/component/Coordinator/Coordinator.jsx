@@ -32,10 +32,10 @@ const CoordinatorPanel = () => {
   const uploadToCloudinary = async (file) => {
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("upload_preset", import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET); // Replace with yours
+    formData.append("upload_preset", "sanskar0820"); // Replace with yours
 
-    const CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
-    const res = await axios.post(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, formData);
+    // const CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
+    const res = await axios.post(`https://api.cloudinary.com/v1_1/dn26nzy5u/image/upload`, formData);
 
     if (res.status !== 200) {
       toast.error("Error uploading image to Cloudinary");
