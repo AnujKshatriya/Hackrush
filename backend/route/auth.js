@@ -8,7 +8,7 @@ dotenv.config();
 const router = express.Router();
 
 router.get("/google", (req, res) => {
-  const redirect_uri = "http://localhost:3000/api/auth/google/callback";
+  const redirect_uri = `${process.env.BACKEND_URL}/api/auth/google/callback`;
   const scope = encodeURIComponent("openid profile email");
   const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.GOOGLE_CLIENT_ID}&redirect_uri=${redirect_uri}&response_type=code&scope=${scope}&access_type=offline&prompt=consent`;
 
@@ -17,7 +17,7 @@ router.get("/google", (req, res) => {
 
 router.get("/google/callback", async (req, res) => {
   const { code } = req.query;
-  const redirect_uri = "http://localhost:3000/api/auth/google/callback";
+  const redirect_uri = `${process.env.BACKEND_URL}/api/auth/google/callback`;
 
   try {
     const tokenRes = await axios.post("https://oauth2.googleapis.com/token", {
